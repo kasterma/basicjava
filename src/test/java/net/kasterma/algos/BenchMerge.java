@@ -66,4 +66,28 @@ public class BenchMerge {
             tos.msd[i].sort();
         }
     }
+
+    @State(Scope.Benchmark)
+    public static class ToSortGenericDouble {
+        MergeSort<Double>[] msd = (MergeSort<Double>[]) new Object[iterationsPerRun];
+
+        {
+            Random random = new Random();
+            for (int i = 0; i < iterationsPerRun; i++) {
+                int len = random.nextInt(lengthBound) + 1;
+                Double[] xs = new Double[len];
+                for (int idx = 0; idx < len; idx++) {
+                    xs[idx] = random.nextDouble();
+                }
+                msd[i] = new MergeSort<>(xs);
+            }
+        }
+    }
+
+    @Benchmark
+    public void benchMSGD(ToSortGenericDouble tos) {
+        for (int i = 0; i < iterationsPerRun; i++) {
+            tos.msd[i].sort();
+        }
+    }
 }

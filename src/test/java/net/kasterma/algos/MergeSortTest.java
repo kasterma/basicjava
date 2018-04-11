@@ -56,4 +56,20 @@ class MergeSortTest {
             assertTrue(msi.sorted());
         }
     }
+
+    @Test
+    void sortGenGeneric() {
+        Random random = new Random();
+        for (int iter = 0; iter < 100; iter++) {
+            log.info("iteration {}", iter);
+            int len = random.nextInt(100) + 1;
+            Double[] xs = new Double[len];
+            for (int idx = 0; idx < len; idx++) {
+                xs[idx] = random.nextDouble();
+            }
+            MergeSort<Double> msi = new MergeSort<>(xs);
+            msi.sort();
+            assertTrue(msi.sorted());
+        }
+    }
 }
