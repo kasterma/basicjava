@@ -7,6 +7,7 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.runner.RunnerException;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Random;
 
 
@@ -69,7 +70,7 @@ public class BenchMerge {
 
     @State(Scope.Benchmark)
     public static class ToSortGenericDouble {
-        MergeSort<Double>[] msd = (MergeSort<Double>[]) new Object[iterationsPerRun];
+        MergeSort<Double>[] msd = (MergeSort<Double>[]) Array.newInstance(MergeSort.class,iterationsPerRun);
 
         {
             Random random = new Random();
