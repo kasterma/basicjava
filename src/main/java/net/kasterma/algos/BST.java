@@ -18,7 +18,7 @@ class BST<Key extends Comparable<Key>, Value> {
         return new BST<Key,Value>();
     }
 
-    void insert(Key key, Value value) {
+    void insert(final Key key, final Value value) {
         if (_root == null) {
             _root = new Node(key, value);
         } else {
@@ -27,7 +27,7 @@ class BST<Key extends Comparable<Key>, Value> {
 
     }
 
-    Optional<Value> find(Key key) {
+    Optional<Value> find(final Key key) {
         if (_root == null) {
             return Optional.empty();
         } else {
@@ -57,7 +57,7 @@ class BST<Key extends Comparable<Key>, Value> {
             _right = null;
         }
 
-        void insert(Key key, Value value) {
+        void insert(final Key key, final Value value) {
             int cmp = key.compareTo(_key);
             if (cmp < 0) {
                 if (_left == null) {
@@ -76,7 +76,7 @@ class BST<Key extends Comparable<Key>, Value> {
             }
         }
 
-        Optional<Value> find(Key key) {
+        Optional<Value> find(final Key key) {
             int cmp = key.compareTo(_key);
             if (cmp < 0) {
                 if (_left == null) {
@@ -93,6 +93,22 @@ class BST<Key extends Comparable<Key>, Value> {
             } else { // cmp == 0
                 return Optional.of(_value);
             }
+        }
+
+        public String toString() {
+            String ls;
+            if (_left != null) {
+                ls = _left.toString();
+            } else {
+                ls = ".";
+            }
+            String rs;
+            if (_right != null) {
+                rs = _right.toString();
+            } else {
+                rs = ".";
+            }
+            return "(" + _key.toString() + "->" + _value.toString() + ls + rs +")";
         }
     }
 }
