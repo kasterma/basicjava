@@ -15,7 +15,7 @@ class BST<Key extends Comparable<Key>, Value> {
     }
 
     static <Key extends Comparable<Key>, Value> BST<Key, Value> empty() {
-        return new BST<Key,Value>();
+        return new BST<>();
     }
 
     void insert(final Key key, final Value value) {
@@ -28,19 +28,19 @@ class BST<Key extends Comparable<Key>, Value> {
     }
 
     Optional<Value> find(final Key key) {
-        if (_root == null) {
-            return Optional.empty();
-        } else {
-            return _root.find(key);
-        }
+        return _root == null ? Optional.empty() : _root.find(key);
+    }
+
+    Optional<Value> min() {
+        return _root == null ? Optional.empty() : _root.min();
+    }
+
+    Optional<Value> max() {
+        return _root == null ? Optional.empty() : _root.max();
     }
 
     public String toString() {
-        if (_root == null) {
-            return "()";
-        } else {
-            return _root.toString();
-        }
+        return _root == null ? "()" : _root.toString();
     }
 
     @Data
@@ -95,6 +95,22 @@ class BST<Key extends Comparable<Key>, Value> {
             }
         }
 
+        Optional<Value> min() {
+            Node n = this;
+            while (n._left != null) {
+                n = n._left;
+            }
+            return Optional.of(n._value);
+        }
+
+        Optional<Value> max() {
+            Node n = this;
+            while (n._right != null) {
+                n = n._right;
+            }
+            return Optional.of(n._value);
+        }
+
         public String toString() {
             String ls;
             if (_left != null) {
@@ -108,7 +124,7 @@ class BST<Key extends Comparable<Key>, Value> {
             } else {
                 rs = ".";
             }
-            return "(" + _key.toString() + "->" + _value.toString() + ls + rs +")";
+            return "(" + _key.toString() + "->" + _value.toString() + ls + rs + ")";
         }
     }
 }
