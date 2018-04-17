@@ -2,6 +2,7 @@ package net.kasterma.algos;
 
 import lombok.Data;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 /**
@@ -37,6 +38,24 @@ class BST<Key extends Comparable<Key>, Value> {
 
     Optional<Value> max() {
         return _root == null ? Optional.empty() : _root.max();
+    }
+
+    Iterator<Value> between(final Key from, final Key to) {
+        if (_root == null) {
+            return new Iterator<Value>() {
+                @Override
+                public boolean hasNext() {
+                    return false;
+                }
+
+                @Override
+                public Value next() {
+                    return null;
+                }
+            };
+        } else {
+            return _root.between(from, to);
+        }
     }
 
     public String toString() {
@@ -109,6 +128,34 @@ class BST<Key extends Comparable<Key>, Value> {
                 n = n._right;
             }
             return Optional.of(n._value);
+        }
+
+        Iterator<Value> between(final Key from, final Key to) {
+            if (from.compareTo(to) > 0) {
+                return new Iterator<Value>() {
+                    @Override
+                    public boolean hasNext() {
+                        return false;
+                    }
+
+                    @Override
+                    public Value next() {
+                        return null;
+                    }
+                };
+            }
+
+            return new Iterator<Value>() {
+                @Override
+                public boolean hasNext() {
+                    return false;
+                }
+
+                @Override
+                public Value next() {
+                    return null;
+                }
+            };
         }
 
         public String toString() {
